@@ -1,0 +1,16 @@
+{% extends 'LogApp/base.html' %}
+{% block content %}
+<p><a href="{% url 'LogApp:topics' %}">Go back</a> to topic lists</p>
+<hr>
+
+<a href="{% url 'LogApp:topic' topic.id %}">{{topic}}</a>
+<p>Add new comment: </p>
+
+<form action="{% url 'LogApp:new_entry' topic.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button name="submit">comment</button>
+</form>
+
+{% endblock content %}

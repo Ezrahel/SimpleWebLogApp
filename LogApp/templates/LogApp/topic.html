@@ -1,0 +1,31 @@
+{% extends 'LogApp/base.html' %}
+
+{% block page_header %}
+<h3>{{ topic }}</h3>
+{% endblock page_header %}
+
+{% block content %}
+<p><a href="{% url 'LogApp:topics' %}">Go back</a> to topics</p>
+<p>Topic: {{ topic }}</p>
+<p>Entries:</p>
+
+<ul>
+{% for entry in entries %}
+<div class="card mb-3">
+<h4 class="card-header">
+{{ entry.date_added|date:'M d, Y H:i' }}
+<small><a href="{% url 'LogApp:edit_entry' entry.id %}">
+edit entry</a></small>
+</h4>
+<div class="card-body">
+{{ entry.text|linebreaks }}
+</div>
+</div>
+{% empty %}
+<li>There are no entries for this topic yet.</li>
+<p>
+    <a href="{% url 'LogApp:new_entry' topic.id %}">Add new entry</a>
+</p>
+{% endfor %}
+</ul>
+{% endblock content %}
